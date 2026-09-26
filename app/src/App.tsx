@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import { Suspense, useEffect, useState, type CSSProperties } from 'react'
-import { PALETTES, TEXT } from './config'
+import { PALETTE_INTERVAL_MS, PALETTES, TEXT } from './config'
 import Header from './Header'
 import Scene from './Scene'
 
@@ -16,7 +16,21 @@ function useUrlChoice<T extends { id: string }>(key: string, options: T[]) {
     url.searchParams.set(key, next)
     history.replaceState(null, '', url)
   }
-  return [options.find((o) => o.id === id)!, pick] as const
+  return [options.find((o) => o.id === id)!, pick, setId] as const
+}
+
+// Moves to the next theme after PALETTE_INTERVAL_MS. The timer restarts whenever the theme
+// changes, so a manual pick gets the full interval too. Automatic steps leave the URL alone,
+// and visitors who ask for reduced motion keep whatever theme they're on.
+function useAutoAdvance(currentId: string, setId: (id: string) => void) {
+  useEffect(() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const timer = setTimeout(() => {
+      const i = PALETTES.findIndex((p) => p.id === currentId)
+      setId(PALETTES[(i + 1) % PALETTES.length].id)
+    }, PALETTE_INTERVAL_MS)
+    return () => clearTimeout(timer)
+  }, [currentId, setId])
 }
 
 // A short message at the top centre that clears itself. `key` restarts the fade when
@@ -32,7 +46,8 @@ function useToast() {
 }
 
 export default function App() {
-  const [palette, pickPalette] = useUrlChoice('palette', PALETTES)
+  const [palette, pickPalette, setPaletteId] = useUrlChoice('palette', PALETTES)
+  useAutoAdvance(palette.id, setPaletteId)
   // Not kept in the URL: a refresh brings back the default text and the empty field.
   const [text, setText] = useState('')
   const [toast, showToast] = useToast()

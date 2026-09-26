@@ -6,6 +6,9 @@
 // shaded away from the wall (`mode`): lighter on dark themes, darker on light ones.
 // `fins` recolours only the blue of the guppy's tail and fins; the body keeps its colours.
 // It's the fins' average colour: the original blue averages #435985, so that keeps them as is.
+// Themes advance on their own after this long; picking a swatch restarts the countdown.
+export const PALETTE_INTERVAL_MS = 5000
+
 export type Palette = {
   id: string
   label: string
