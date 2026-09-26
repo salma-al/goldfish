@@ -1,0 +1,163 @@
+html, body, #root { margin: 0; height: 100%; overflow: hidden; background: #3d1a36; }
+
+
+.palettes {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.swatch {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.3);
+  font: 800 15px/44px system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.swatch[aria-checked='true'] { outline: 1px solid var(--text); outline-offset: 3px; }
+.swatch:focus-visible { outline: 1px solid var(--text); outline-offset: 3px; }
+
+.swatch-fins {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5px rgb(255 255 255 / 0.7);
+}
+
+.text-field {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  width: min(320px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 12px 18px;
+  border: 1px solid color-mix(in srgb, var(--text) 35%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--ink);
+  font: 600 15px/1.2 system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.text-field::placeholder { color: color-mix(in srgb, var(--ink) 75%, transparent); text-transform: none; }
+.text-field:focus { outline: 1px solid var(--text); outline-offset: 2px; }
+
+/* Phones: stack the text field above the swatches instead of beside them */
+@media (max-width: 720px) {
+  .text-field { bottom: 76px; }
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/barlow-medium.ttf') format('truetype');
+}
+
+/* --text is the theme's text colour (set in App); --ink shades it away from the wall for the
+   logo and icons: darker on light themes, lighter on dark ones.
+   Registered as a colour so it can fade between themes in step with the 3D scene. */
+@property --text {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #e7b8d8;
+}
+
+.app {
+  --ink: color-mix(in srgb, var(--text) 75%, black);
+  height: 100%;
+  transition: --text 0.5s;
+}
+
+.app[data-mode='dark'] { --ink: color-mix(in srgb, var(--text) 75%, white); }
+
+.header {
+  position: fixed;
+  inset: 16px 16px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--ink);
+  pointer-events: none; /* let clicks through the gap; the links opt back in */
+}
+
+.logo {
+  font: 500 26px/1 'Barlow', system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.socials {
+  display: flex;
+  gap: 4px;
+  pointer-events: auto;
+}
+
+.socials a,
+.socials button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+
+.socials a:hover,
+.socials button:hover { opacity: 1; }
+.socials a:focus-visible,
+.socials button:focus-visible { outline: 1px solid currentColor; outline-offset: 0; opacity: 1; }
+.socials svg { width: 22px; height: 22px; }
+
+.toast-region {
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.toast {
+  padding: 12px 20px;
+  border-radius: 4px;
+  background: rgb(0 0 0 / 0.75);
+  color: #fff;
+  font: 500 15px/1.2 system-ui, sans-serif;
+  white-space: nowrap;
+  animation: toast 2s ease forwards;
+}
+
+@keyframes toast {
+  0% { opacity: 0; transform: translateY(-6px); }
+  10%, 80% { opacity: 1; transform: none; }
+  100% { opacity: 0; }
+}
+
+/* Phones: the logo and icons fill the top row, so the toast drops just below them */
+@media (max-width: 720px) {
+  .toast-region { top: 68px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast { animation: none; }
+  .app { transition: none; }
+}
