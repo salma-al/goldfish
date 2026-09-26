@@ -1,7 +1,7 @@
 # Goldfish — Planning
 
 ## Goal
-A one-screen portfolio piece that shows off web 3D skills: a guppy swimming
+A one-screen web project (to be featured in Salma's portfolio later) that shows off web 3D skills: a guppy swimming
 in empty space (no sea or water), casting a shadow onto big text behind it. The look
 follows a reference image, but with our own colors.
 
@@ -12,7 +12,7 @@ follows a reference image, but with our own colors.
 | Model | Rigged guppy with its own 5s swim clip (`Take 001`) → `app/public/guppy.glb` (0.56MB). Its eye texture was recoloured from red to black with a grey ring; the original red-eyed version was deleted 2026-09-26 | Picked 2026-09-26 over three static models (Shiny, Comet, Betta): an artist-made swim looks the most natural, and the file is tiny |
 | Swim motion | The model's own skeleton animation, plus a lazy figure-eight path; the fish faces its direction of travel, turned 0.55 rad toward the camera | The earlier vertex-shader bend was dropped with the static models |
 | Background text | 3D text in the scene. Visitors change it in the text field at the bottom centre (max 24 characters, uppercased, not kept in the URL, so a refresh restores `TEXT.default` and the empty field). One word takes one line; more words split into two lines at the most even space. Lines shrink to fit the visible wall width, which also works on phones | Real shadows land on the letters, like the reference |
-| Themes | Five themes in `PALETTES` (`config.ts`), picked from swatches at the bottom left (also `?palette=<id>`). They alternate dark and light: Plum (dark, Raizent, teal fins), Sage (light, TBJ, magenta), Sand (dark, Barlow Bold, indigo-violet), Blush (light pink, The Globe, vista blue), Deep sea (dark teal, JPAL 10, coral). Text is at least 8:1 against the wall. Each sets the wall, the text colour and font, and the fin colour; colours ease over about 0.5s | The user's order and colours, 2026-09-26. Terracotta was dropped |
+| Themes | Five themes in `PALETTES` (`config.ts`), picked from swatches at the bottom left (also `?palette=<id>`). They alternate dark and light: Plum (dark, Raizent, teal fins), Sage (light, TBJ, magenta), Indigo (dark navy `#34347e`, periwinkle text `#c5c7f2`, Barlow Bold, purple fins `#b669e2`), Blush (light pink, The Globe, berry fins `#882849`), Deep sea (dark teal, JPAL 10, coral). Text is at least 6.5:1 against the wall. Each sets the wall, the text colour and font, and the fin colour; colours ease over about 0.5s | The user's order and colours, 2026-09-26. Terracotta was dropped |
 | Exact colours | Wall and text use flat unlit materials with no tone mapping, so they show the exact hex. A transparent `shadowMaterial` plane on top draws the fish's shadow over both (`SHADOW_OPACITY`) | Lit materials plus ACES tone mapping had shifted the colours (for example `#c26c32` rendered as `#d58442`) |
 | Fin recolour | A fragment-shader hue shift of the texture's blue band (hue 0.42–0.76) toward the palette's `fins` colour. Saturation and brightness are scaled relative to the fins' average colour `#435985`, so the stripes and shading survive and the body is untouched | Driven by the palette, with no texture edits |
 | Lighting | Directional light from the upper left, with shadow maps and an environment for reflections | Shadow falls down and to the right, like the reference. |

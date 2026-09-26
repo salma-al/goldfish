@@ -1,6 +1,6 @@
 # Goldfish
 
-An interactive 3D portfolio piece: a guppy swims in front of big words and casts a real shadow across them. Visitors can type their own words and switch between five colour themes, each with its own typeface and fin colour.
+An interactive 3D web project by Salma Ali: a guppy swims in front of big words and casts a real shadow across them. Visitors can type their own words and switch between five colour themes, each with its own typeface and fin colour.
 
 ## Features
 

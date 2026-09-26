@@ -1,8 +1,7 @@
 // Everything you'll want to tweak (or later expose as UI controls) lives here.
 // Themes, picked from the swatches at the bottom left. The first is the default.
 // Each sets the wall, the text colour and font, and the fin colour. They alternate dark and
-// light; every text colour is at least 8:1 against its wall. Fins are at least 3:1, except
-// Blush's vista blue (2:1), which stands out by hue against the pink rather than brightness.
+// light; every text colour is at least 6.5:1 against its wall, and fins at least 3:1.
 // The logo, icons and selected/focused outlines derive from the text colour in index.css,
 // shaded away from the wall (`mode`): lighter on dark themes, darker on light ones.
 // `fins` recolours only the blue of the guppy's tail and fins; the body keeps its colours.
@@ -20,8 +19,8 @@ export type Palette = {
 export const PALETTES: Palette[] = [
   { id: 'plum', label: 'Plum', mode: 'dark', background: '#3d1a36', text: '#e7b8d8', fins: '#23958a', font: '/fonts/raizent.otf' },
   { id: 'sage', label: 'Sage', mode: 'light', background: '#c9d4a8', text: '#2f3a17', fins: '#9c3566', font: '/fonts/tbj-black-gold.ttf' },
-  { id: 'sand', label: 'Sand', mode: 'dark', background: '#3b2a1c', text: '#e3c9a0', fins: '#6f67d0', font: '/fonts/barlow-bold.ttf' },
-  { id: 'blush', label: 'Blush', mode: 'light', background: '#f6d6dc', text: '#6b1a33', fins: '#7c9ed9', font: '/fonts/the-globe.ttf' },
+  { id: 'indigo', label: 'Indigo', mode: 'dark', background: '#34347e', text: '#c5c7f2', fins: '#b669e2', font: '/fonts/barlow-bold.ttf' },
+  { id: 'blush', label: 'Blush', mode: 'light', background: '#f6d6dc', text: '#6b1a33', fins: '#882849', font: '/fonts/the-globe.ttf' },
   { id: 'deep-sea', label: 'Deep sea', mode: 'dark', background: '#0f3f4d', text: '#cfe3e6', fins: '#e8704f', font: '/fonts/jpal-10.otf' },
 ]
 
